@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Create-Article
+{% endblock %}
+
+
+{% block body %}
+<div class="container"><center>Страница для создания страниц</center>
+    <form method="post">
+        <input type="text" name="title" id="title" class="form-control" placeholder="Введите название"><br>
+        <textarea name="intro" id="intro" class="form-control" placeholder="Введите анонс"></textarea><br>
+        <textarea name="text" id="text" class="form-control" placeholder="Введите основной текс"></textarea><br>
+        <input type="submit"  class="btn btn-success" value="Готово"><br>
+    </form>
+</div>
+{% endblock %}
