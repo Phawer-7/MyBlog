@@ -1,8 +1,8 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy  # подключение модуля для работы с бд
 from datetime import datetime
 
-# https://www.youtube.com/watch?v=G-si1WbtNeM&t=972s видео на ютуб 17 43
+# https://www.youtube.com/watch?v=gDaTTjmCCwQ  видео на ютуб 9 42
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -36,10 +36,29 @@ def about_page():
     return render_template('about.html')
 
 
+@app.route('/posts')
+def post():
+    articles = Article.query.order_by(Article.date).all()
+    return render_template('posts.html', articles=articles)
+
+
 @app.route('/create-article', methods=['POST', 'GET'])
 def create_article():
-    # if
-    return render_template('create-article.html')
+    if request.method == "POST":
+        title = request.form['title']
+        intro = request.form['intro']
+        text = request.form['text']
+
+        article = Article(title=title, intro=intro, text=text)
+
+        try:
+            db.session.add(article)
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'Ошибка'
+    else:
+        return render_template('create-article.html')
 
 
 if __name__ == '__main__':
