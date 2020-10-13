@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+Posts
+{% endblock %}
+
+
+{% block body %}
+<div class="container">
+    <center><h1>Все статьи.</h1></center>
+    {% for el in articles %}
+    <div class="alert alert-info">
+        <h2>{{ el.title }}</h2>
+        <p> Дата: {{ el.date.date() }}</p>
+        <h4>{{ el.intro }}</h4>
+        <button class="btn btn-warning">Подробнее</button>
+    </div>
+    {% endfor %}
+
+
+
+</div>
+
+{% endblock %}
