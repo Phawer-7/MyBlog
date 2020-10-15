@@ -9,14 +9,22 @@ Posts
 {% block body %}
 <div class="container">
     <center><h1>Все статьи.</h1></center>
-    {% for el in articles %}
-    <div class="alert alert-info">
-        <h2>{{ el.title }}</h2>
-        <p> Дата: {{ el.date.date() }}</p>
-        <h4>{{ el.intro }}</h4>
-        <button class="btn btn-warning">Подробнее</button>
-    </div>
-    {% endfor %}
+
+		{% if articles|length > 0 %}
+			{% for el in articles %}
+			<div class="alert alert-info">
+				<h2>{{ el.title }}</h2>
+				<p> Дата: {{ el.date.date() }}</p>
+				<h4>{{ el.intro }}</h4>
+				<a class="btn btn-warning" href="/posts/{{ el.id }}">Подробнее</a>
+			</div>
+			{% endfor %}
+
+
+		{% else %}
+			<p>Нет статей на сайте.</p>
+		{% endif %}
+
 
 
 
