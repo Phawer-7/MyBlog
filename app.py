@@ -1,10 +1,8 @@
-from flask import Flask, render_template, url_for, request, redirect 
+from flask import Flask, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy # подключение модуля для работы с бд
 
-
+# импортирую библиотеку dateme для работы с датой
 from datetime import datetime
-
-# https://www.youtube.com/watch?v=gDaTTjmCCwQ  видео на ютуб 9 42
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
@@ -38,6 +36,16 @@ def about_page():
     return render_template('about.html')
 
 
+@app.route('/resource')
+def resource_page():
+    return render_template('resource.html')
+
+
+@app.route('/accounts')
+def accounts_page():
+    return render_template('accounts.html')
+
+
 @app.route('/posts')
 def post():
     articles = Article.query.order_by(Article.date.desc()).all()
@@ -57,6 +65,7 @@ def post_delete(id):
     try:
         db.session.delete(article)
         db.session.commit()
+        print('был удален пост')
         return redirect('/posts')
     except:
         return 'При удалении статьи произошла ошибка.'
